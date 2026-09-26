@@ -42,7 +42,7 @@ public class Theatre {
             // Iterate through each seat per row and display corresponding symbol for taken
             // seat/available seat
             for (int j = 0; j < seats[i].length; j++) {
-                if (seats[i][j] == false) {
+                if (!seats[i][j]) {
                     System.out.printf("%4s", "O");
                 } else {
                     System.out.printf("%4s", "X");
@@ -60,7 +60,7 @@ public class Theatre {
         int rowIndex = rowLetter - 'A';
         int seatIndex = seatNumber - 1;
 
-        if (seats[rowIndex][seatIndex] == false) {
+        if (!seats[rowIndex][seatIndex]) {
             seats[rowIndex][seatIndex] = true;
             seatReserved = true;
         }
@@ -68,7 +68,33 @@ public class Theatre {
         return seatReserved;
     }
 
-    public void cancelReservation() {
+    public boolean cancelReservation(char rowLetter, int seatNumber) {
+        boolean cancelledReservation = false;
 
+        // Convert the row letter and seat number back to the index number
+        int rowIndex = rowLetter - 'A';
+        int seatIndex = seatNumber - 1;
+
+        if (seats[rowIndex][seatIndex]) {
+            seats[rowIndex][seatIndex] = false;
+            cancelledReservation = true;
+        }
+
+        return cancelledReservation;
+    }
+
+    // Helper method to check for valid seat
+    public boolean isValidSeat(char rowLetter, int seatNumber) {
+        boolean validSeat = false;
+
+        // Convert the row letter and seat number back to the index number
+        int rowIndex = rowLetter - 'A';
+        int seatIndex = seatNumber - 1;
+
+        if (rowIndex >= 0 && rowIndex < rows && seatIndex >= 0 && seatIndex < seatsPerRow) {
+            validSeat = true;
+        }
+
+        return validSeat;
     }
 }

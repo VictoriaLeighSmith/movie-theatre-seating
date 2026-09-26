@@ -32,20 +32,37 @@ public class Main {
                     break;
                 case 2:
                     System.out.print("What row?: ");
-                    char rowLetter = scanner.next().charAt(0);
+                    char rowLetter = Character.toUpperCase(scanner.next().charAt(0));
 
                     System.out.print("What seat?: ");
                     int seatNumber = scanner.nextInt();
 
-                    if (theatre.reserveSeat(rowLetter, seatNumber)) {
+                    if (!theatre.isValidSeat(rowLetter, seatNumber)) {
+                        System.out.println("Invalid seat selection.");
+                    } else if (theatre.reserveSeat(rowLetter, seatNumber)) {
                         System.out.println("Seat booked successfully!");
                     } else {
                         System.out.println("Seat is already reserved.");
                     }
 
+                    theatre.displaySeats();
                     break;
                 case 3:
-                    theatre.cancelReservation();
+                    System.out.print("What row?: ");
+                    char cancelRowLetter = Character.toUpperCase(scanner.next().charAt(0));
+
+                    System.out.print("What seat?: ");
+                    int cancelSeatNumber = scanner.nextInt();
+
+                    if (!theatre.isValidSeat(cancelRowLetter, cancelSeatNumber)) {
+                        System.out.println("Invalid seat selection.");
+                    } else if (theatre.cancelReservation(cancelRowLetter, cancelSeatNumber)) {
+                        System.out.println("Seat reservation cancelled successfully!");
+                    } else {
+                        System.out.println("Reservation not found.");
+                    }
+
+                    theatre.displaySeats();
                     break;
                 case 4:
                     displayMenu = false;
