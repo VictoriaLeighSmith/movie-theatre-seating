@@ -4,7 +4,6 @@ public class Theatre {
     private int seatsPerRow;
     private boolean[][] seats;
 
-    // Constructor
     public Theatre(int rows, int seatsPerRow) {
         this.rows = rows;
         this.seatsPerRow = seatsPerRow;
@@ -81,6 +80,22 @@ public class Theatre {
         }
 
         return cancelledReservation;
+    }
+
+    // Method to find next available seat
+    public String findAvailableSeat() {
+        for (int i = 0; i < seats.length; i++) {
+            for (int j = 0; j < seats[i].length; j++) {
+                if (!seats[i][j]) {
+                    char rowLetter = (char) ('A' + i);
+                    int seatNumber = j + 1;
+
+                    return String.format("%c%d", rowLetter, seatNumber);
+                }
+            }
+        }
+
+        return null;
     }
 
     // Helper method to check for valid seat

@@ -2,13 +2,9 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        // Create scanner object
         Scanner scanner = new Scanner(System.in);
-
-        // Create theatre object
         Theatre theatre = new Theatre(5, 9);
 
-        // Declare boolean value to use in menu loop
         boolean displayMenu = true;
 
         // Display menu
@@ -31,10 +27,10 @@ public class Main {
                     theatre.displaySeats();
                     break;
                 case 2:
-                    System.out.print("What row?: ");
+                    System.out.print("Select row: ");
                     char rowLetter = Character.toUpperCase(scanner.next().charAt(0));
 
-                    System.out.print("What seat?: ");
+                    System.out.print("Select seat: ");
                     int seatNumber = scanner.nextInt();
 
                     if (!theatre.isValidSeat(rowLetter, seatNumber)) {
@@ -42,16 +38,23 @@ public class Main {
                     } else if (theatre.reserveSeat(rowLetter, seatNumber)) {
                         System.out.println("Seat booked successfully!");
                     } else {
-                        System.out.println("Seat is already reserved.");
+                        String suggestedSeat = theatre.findAvailableSeat();
+
+                        if (suggestedSeat != null) {
+                            System.out.printf("Seat is already reserved. Suggested seat: %s%n",
+                                    suggestedSeat);
+                        } else {
+                            System.out.println("Seat is already reserved. No other seats are available.");
+                        }
                     }
 
                     theatre.displaySeats();
                     break;
                 case 3:
-                    System.out.print("What row?: ");
+                    System.out.print("Reserved row: ");
                     char cancelRowLetter = Character.toUpperCase(scanner.next().charAt(0));
 
-                    System.out.print("What seat?: ");
+                    System.out.print("Reserved seat: ");
                     int cancelSeatNumber = scanner.nextInt();
 
                     if (!theatre.isValidSeat(cancelRowLetter, cancelSeatNumber)) {
