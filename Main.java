@@ -10,7 +10,8 @@ public class Main {
         // Display menu
         while (displayMenu) {
             System.out.println();
-            System.out.println("MOVIE THEATRE");
+            System.out.println("MOVIE THEATRE RESERVATIONS");
+            System.out.println("--------------------------");
             System.out.println();
             System.out.println("1. Display Seats");
             System.out.println("2. Reserve Seat");
@@ -18,6 +19,12 @@ public class Main {
             System.out.println("4. Exit");
             System.out.println();
             System.out.print("Please enter your choice (1-4): ");
+
+            if (!scanner.hasNextInt()) {
+                System.out.println("Invalid choice. Please enter a number from 1-4.");
+                scanner.nextLine();
+                continue;
+            }
 
             int userChoice = scanner.nextInt();
             scanner.nextLine();
@@ -29,9 +36,19 @@ public class Main {
                 case 2:
                     System.out.print("Select row: ");
                     char rowLetter = Character.toUpperCase(scanner.next().charAt(0));
+                    scanner.nextLine();
 
                     System.out.print("Select seat: ");
+
+                    if (!scanner.hasNextInt()) {
+                        System.out.println("Invalid seat number.");
+                        scanner.nextLine();
+                        theatre.displaySeats();
+                        break;
+                    }
+
                     int seatNumber = scanner.nextInt();
+                    scanner.nextLine();
 
                     if (!theatre.isValidSeat(rowLetter, seatNumber)) {
                         System.out.println("Invalid seat selection.");
@@ -53,9 +70,19 @@ public class Main {
                 case 3:
                     System.out.print("Reserved row: ");
                     char cancelRowLetter = Character.toUpperCase(scanner.next().charAt(0));
+                    scanner.nextLine();
 
                     System.out.print("Reserved seat: ");
+
+                    if (!scanner.hasNextInt()) {
+                        System.out.println("Invalid seat number.");
+                        scanner.nextLine();
+                        theatre.displaySeats();
+                        break;
+                    }
+
                     int cancelSeatNumber = scanner.nextInt();
+                    scanner.nextLine();
 
                     if (!theatre.isValidSeat(cancelRowLetter, cancelSeatNumber)) {
                         System.out.println("Invalid seat selection.");
@@ -71,7 +98,7 @@ public class Main {
                     displayMenu = false;
                     break;
                 default:
-                    System.out.println("Invalid choice.");
+                    System.out.println("Invalid choice. Please enter a number from 1-4.");
             }
 
         }
